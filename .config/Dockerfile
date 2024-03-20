@@ -14,3 +14,7 @@ ENV GF_DEFAULT_APP_MODE "development"
 # Inject livereload script into grafana index.html
 USER root
 RUN sed -i 's|</body>|<script src="http://localhost:35729/livereload.js"></script></body>|g' /usr/share/grafana/public/views/index.html
+
+# Using self-signed certificate of Kubernetes
+COPY *.crt /usr/local/share/ca-certificates
+RUN update-ca-certificates
