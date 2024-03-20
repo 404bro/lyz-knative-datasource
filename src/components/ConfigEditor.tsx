@@ -3,38 +3,45 @@ import { InlineField, Input, SecretInput } from '@grafana/ui';
 import { DataSourcePluginOptionsEditorProps } from '@grafana/data';
 import { MyDataSourceOptions, MySecureJsonData } from '../types';
 
-interface Props extends DataSourcePluginOptionsEditorProps<MyDataSourceOptions> {}
+interface Props extends DataSourcePluginOptionsEditorProps<MyDataSourceOptions> { }
 
 export function ConfigEditor(props: Props) {
   const { onOptionsChange, options } = props;
-  const onPathChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const onK8sUrlChange = (event: ChangeEvent<HTMLInputElement>) => {
     const jsonData = {
       ...options.jsonData,
-      path: event.target.value,
+      k8sUrl: event.target.value,
+    };
+    onOptionsChange({ ...options, jsonData });
+  };
+  const onPromUrlChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const jsonData = {
+      ...options.jsonData,
+      promUrl: event.target.value,
     };
     onOptionsChange({ ...options, jsonData });
   };
 
   // Secure field (only sent to the backend)
-  const onAPIKeyChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const onK8sTokenChange = (event: ChangeEvent<HTMLInputElement>) => {
     onOptionsChange({
       ...options,
       secureJsonData: {
-        apiKey: event.target.value,
+        k8sToken: event.target.value,
       },
     });
   };
 
-  const onResetAPIKey = () => {
+  const onResetK8sToken = () => {
     onOptionsChange({
       ...options,
       secureJsonFields: {
         ...options.secureJsonFields,
-        apiKey: false,
+        k8sToken: false,
       },
       secureJsonData: {
         ...options.secureJsonData,
-        apiKey: '',
+        k8sToken: '',
       },
     });
   };
@@ -44,22 +51,27 @@ export function ConfigEditor(props: Props) {
 
   return (
     <div className="gf-form-group">
-      <InlineField label="Path" labelWidth={12}>
+      <InlineField label="Kubernetes API Server URL" labelWidth={24}>
         <Input
-          onChange={onPathChange}
-          value={jsonData.path || ''}
-          placeholder="json field returned to frontend"
-          width={40}
+          onChange={onK8sUrlChange}
+          value={jsonData.k8sUrl || ''}
+          width={50}
         />
       </InlineField>
-      <InlineField label="API Key" labelWidth={12}>
+      <InlineField label="Kubernetes API Server Token" labelWidth={24}>
         <SecretInput
-          isConfigured={(secureJsonFields && secureJsonFields.apiKey) as boolean}
-          value={secureJsonData.apiKey || ''}
-          placeholder="secure json field (backend only)"
-          width={40}
-          onReset={onResetAPIKey}
-          onChange={onAPIKeyChange}
+          isConfigured={(secureJsonFields && secureJsonFields.k8sToken) as boolean}
+          value={secureJsonData.k8sToken || ''}
+          width={50}
+          onReset={onResetK8sToken}
+          onChange={onK8sTokenChange}
+        />
+      </InlineField>
+      <InlineField label="Prometheus URL" labelWidth={24}>
+        <Input
+          onChange={onPromUrlChange}
+          value={jsonData.promUrl || ''}
+          width={50}
         />
       </InlineField>
     </div>
