@@ -1,7 +1,8 @@
-import { DataSourceJsonData } from '@grafana/data';
+import { DataSourceJsonData, SelectableValue } from '@grafana/data';
 import { DataQuery } from '@grafana/schema';
 
 export interface MyQuery extends DataQuery {
+  type: string
   queryText?: string;
   constant: number;
 }
@@ -24,3 +25,15 @@ export interface MyDataSourceOptions extends DataSourceJsonData {
 export interface MySecureJsonData {
   k8sToken?: string;
 }
+
+export enum QueryTypeValue {
+  OVERVIEW = 'overview',
+}
+
+export const QueryType: Array<SelectableValue<QueryTypeValue>> = [
+  {
+    label: 'overview',
+    description: 'Overview Node Graph',
+    value: QueryTypeValue.OVERVIEW
+  },
+]
