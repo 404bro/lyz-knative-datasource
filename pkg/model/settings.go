@@ -1,9 +1,10 @@
 package model
 
 type PluginSettings struct {
-	K8sUrl  string                `json:"k8sUrl"`
-	PromUrl string                `json:"promUrl"`
-	Secrets *SecretPluginSettings `json:"-"`
+	K8sUrl    string                `json:"k8sUrl"`
+	PromUrl   string                `json:"promUrl"`
+	JaegerUrl string                `json:"jaegerUrl"`
+	Secrets   *SecretPluginSettings `json:"-"`
 }
 
 type SecretPluginSettings struct {

@@ -3,6 +3,7 @@ package plugin
 import (
 	"context"
 	"encoding/json"
+	"net/http"
 	"time"
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
@@ -83,6 +84,7 @@ func NewDatasource(_ context.Context, settings backend.DataSourceInstanceSetting
 			KnsClient:  knsClient,
 			KneClient:  kneClient,
 			PromClient: promClient,
+			JaegerUrl:  pluginSettings.JaegerUrl,
 		},
 	}, nil
 }
@@ -158,6 +160,23 @@ func (d *Datasource) CheckHealth(ctx context.Context, req *backend.CheckHealthRe
 		return &backend.CheckHealthResult{
 			Status:  backend.HealthStatusError,
 			Message: "Error querying Knative Eventing: " + err.Error(),
+		}, nil
+	}
+
+	// Check Jaeger
+	checkUrl := d.clients.JaegerUrl + "/api/services"
+	resp, err := http.Get(checkUrl)
+	if err != nil {
+		return &backend.CheckHealthResult{
+			Status:  backend.HealthStatusError,
+			Message: "Error querying Jaeger: " + err.Error(),
+		}, nil
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return &backend.CheckHealthResult{
+			Status:  backend.HealthStatusError,
+			Message: "HTTP request failed, status %d" + string(resp.Status),
 		}, nil
 	}
 

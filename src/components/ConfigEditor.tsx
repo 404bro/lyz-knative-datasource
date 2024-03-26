@@ -21,6 +21,13 @@ export function ConfigEditor(props: Props) {
     };
     onOptionsChange({ ...options, jsonData });
   };
+  const onJaegerUrlChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const jsonData = {
+      ...options.jsonData,
+      jaegerUrl: event.target.value,
+    };
+    onOptionsChange({ ...options, jsonData })
+  };
 
   // Secure field (only sent to the backend)
   const onK8sTokenChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +63,7 @@ export function ConfigEditor(props: Props) {
           onChange={onK8sUrlChange}
           value={jsonData.k8sUrl || ''}
           width={50}
+          placeholder='https://localhost:6443'
         />
       </InlineField>
       <InlineField label="Kubernetes API Server Token" labelWidth={24}>
@@ -72,6 +80,15 @@ export function ConfigEditor(props: Props) {
           onChange={onPromUrlChange}
           value={jsonData.promUrl || ''}
           width={50}
+          placeholder='http://localhost:9090'
+        />
+      </InlineField>
+      <InlineField label="Jaeger URL" labelWidth={24} >
+        <Input
+          onChange={onJaegerUrlChange}
+          value={jsonData.jaegerUrl || ''}
+          width={50}
+          placeholder='http://localhost:16686'
         />
       </InlineField>
     </div>
