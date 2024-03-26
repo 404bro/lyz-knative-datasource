@@ -17,6 +17,7 @@ export const DEFAULT_QUERY: Partial<MyQuery> = {
 export interface MyDataSourceOptions extends DataSourceJsonData {
   k8sUrl?: string;
   promUrl?: string;
+  jaegerUrl?: string;
 }
 
 /**

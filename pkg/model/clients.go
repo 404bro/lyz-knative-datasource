@@ -12,4 +12,5 @@ type Clients struct {
 	KneClient  kneclient.KnEventingClient
 	K8sClient  kubernetes.Clientset
 	PromClient promapi.Client
+	JaegerUrl  string
 }
