@@ -1,7 +1,7 @@
 package model
 
 const (
-	Overview = "overview"
+	QueryServiceMap = "Service Map"
 )
 
 type QueryModel struct {

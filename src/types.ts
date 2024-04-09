@@ -15,26 +15,23 @@ export const DEFAULT_QUERY: Partial<MyQuery> = {
  * These are options configured for each DataSource instance
  */
 export interface MyDataSourceOptions extends DataSourceJsonData {
-  k8sUrl?: string;
-  promUrl?: string;
-  jaegerUrl?: string;
+  agentURL?: string;
 }
 
 /**
  * Value that is used in the backend, but never sent over HTTP to the frontend
  */
 export interface MySecureJsonData {
-  k8sToken?: string;
 }
 
 export enum QueryTypeValue {
-  OVERVIEW = 'overview',
+  SERVICE_MAP = 'Service Map',
 }
 
 export const QueryType: Array<SelectableValue<QueryTypeValue>> = [
   {
-    label: 'overview',
-    description: 'Overview Node Graph',
-    value: QueryTypeValue.OVERVIEW
+    label: 'Service Map',
+    description: 'Service Map (node graph)',
+    value: QueryTypeValue.SERVICE_MAP
   },
 ]

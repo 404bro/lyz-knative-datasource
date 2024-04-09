@@ -4,9 +4,11 @@ TARGET="node-t"
 TARGET_ZIP="/home/lyz/lyz-knative-datasource.zip"
 TARGET_PLUGINS_DIR="/home/lyz/plugins"
 
-mage -v
+mage
 npm run build
-mv dist/ lyz-knative-datasource
+rm -rf lyz-knative-datasource
+cp -R dist/ lyz-knative-datasource
+rm -f lyz-knative-datasource.zip
 zip -0 lyz-knative-datasource.zip lyz-knative-datasource -r
 scp lyz-knative-datasource.zip $TARGET:$TARGET_ZIP
 
