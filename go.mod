@@ -3,8 +3,10 @@ module github.com/lyz/knative
 go 1.21
 
 require (
+	github.com/google/uuid v1.6.0
 	github.com/grafana/grafana-plugin-sdk-go v0.216.0
 	github.com/prometheus/client_golang v1.18.0
+	github.com/prometheus/common v0.46.0
 	k8s.io/apimachinery v0.29.3
 	k8s.io/client-go v0.29.3
 	knative.dev/client v0.40.0
@@ -56,7 +58,6 @@ require (
 	github.com/google/go-containerregistry v0.13.0 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
-	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/gregjones/httpcache v0.0.0-20190611155906-901d90724c79 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0 // indirect
@@ -101,7 +102,6 @@ require (
 	github.com/pierrec/lz4/v4 v4.1.18 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/client_model v0.5.0 // indirect
-	github.com/prometheus/common v0.46.0 // indirect
 	github.com/prometheus/procfs v0.12.0 // indirect
 	github.com/prometheus/statsd_exporter v0.22.8 // indirect
 	github.com/rickb777/date v1.20.0 // indirect

@@ -28,6 +28,8 @@ ci/
 e2e-results/
 **/cypress/videos
 **/cypress/report.json
+*.zip
+lyz-knative-datasource
 
 # Editor
 .idea
