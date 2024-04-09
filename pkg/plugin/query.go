@@ -19,7 +19,7 @@ func loadQueryModel(source backend.DataQuery) (*model.QueryModel, error) {
 	return &qm, nil
 }
 
-func query(ctx context.Context, query backend.DataQuery, clients model.Clients) backend.DataResponse {
+func query(ctx context.Context, query backend.DataQuery, agentURL string) backend.DataResponse {
 	from := query.TimeRange.From
 	to := query.TimeRange.To
 	qm, err := loadQueryModel(query)
@@ -27,8 +27,8 @@ func query(ctx context.Context, query backend.DataQuery, clients model.Clients) 
 		return backend.ErrDataResponse(backend.StatusBadRequest, fmt.Sprintf("json unmarshal: %v", err.Error()))
 	}
 	switch qm.Type {
-	case model.Overview:
-		return handler.Overview(ctx, from, to, qm, clients)
+	case model.QueryServiceMap:
+		return handler.Overview(ctx, from, to, qm, agentURL)
 	}
 	// create data frame response.
 	// For an overview on data frames and how grafana handles them:

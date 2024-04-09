@@ -28,7 +28,7 @@ export function QueryEditor({ query, onChange, onRunQuery }: Props) {
       <InlineField label="Type">
         <Select onChange={onTypeChange} value={type} width={24} options={QueryType} />
       </InlineField>
-      {type !== "overview" && (
+      {type !== "Service Map" && (
         <>
           <InlineField label="Constant">
             <Input onChange={onConstantChange} value={constant} width={8} type="number" step="0.1" />
