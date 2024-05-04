@@ -21,13 +21,31 @@ export function QueryEditor({ query, onChange, onRunQuery }: Props) {
     onRunQuery();
   };
 
-  const { type, queryText, constant } = query;
+  const onNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    onChange({ ...query, name: event.target.value });
+  }
+
+  const onNamespaceChange = (event: ChangeEvent<HTMLInputElement>) => {
+    onChange({ ...query, namespace: event.target.value });
+  }
+
+  const { type, name, namespace, queryText, constant } = query;
 
   return (
     <div className="gf-form">
       <InlineField label="Type">
         <Select onChange={onTypeChange} value={type} width={24} options={QueryType} />
       </InlineField>
+      {(type === "Analytics Services" || type === "Analytics Traces" || type === "Analytics Map") && (
+        <>
+          <InlineField label="Name">
+            <Input onChange={onNameChange} value={name} width={24} />
+          </InlineField>
+          <InlineField label="Namespace">
+            <Input onChange={onNamespaceChange} value={namespace} width={24} />
+          </InlineField>
+        </>
+      )}
       {type !== "Service Map" && (
         <>
           <InlineField label="Constant">

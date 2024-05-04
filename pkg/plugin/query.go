@@ -29,6 +29,14 @@ func query(ctx context.Context, query backend.DataQuery, agentURL string) backen
 	switch qm.Type {
 	case model.QueryServiceMap:
 		return handler.Overview(ctx, from, to, qm, agentURL)
+	case model.QueryServices:
+		return handler.Services(ctx, from, to, qm, agentURL)
+	case model.QueryAnalyticsMap:
+		return handler.AnalyticsMap(ctx, from, to, qm, agentURL)
+	case model.QueryAnalyticsServices:
+		return handler.AnalyticsServices(ctx, from, to, qm, agentURL)
+	case model.QueryAnalyticsTraces:
+		return handler.AnalyticsTraces(ctx, from, to, qm, agentURL)
 	}
 	// create data frame response.
 	// For an overview on data frames and how grafana handles them:
